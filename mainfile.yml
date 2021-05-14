@@ -1,0 +1,25 @@
+- hosts: all
+  vars_files:
+          - "{{ ansible_facts['os_family'] }}.yml"
+
+  tasks:
+  - name: "os family name ."
+    debug: 
+       msg: "This is {{ ansible_facts['os_family'] }} os"
+
+  - name: "installing software now"
+    package: 
+       name: "{{ software }}"
+       state: present
+
+  - name: "copying the web page"
+    copy: 
+       src: index.html
+       dest: "/var/www/html/"
+
+  - name: "starting software service."
+    service: 
+       name: "{{ software }}"
+       state: started
+       enabled: yes
+            
